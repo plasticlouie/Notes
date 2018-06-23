@@ -18,43 +18,70 @@ using namespace std;
 // ------------------------------------------------------------------
 class Solution {
 public:
-    vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+  int MoreThanHalfNum_Solution(vector<int> numbers)
+  {
+    if(numbers.size()==0){return 0;}
+    int num_data = numbers.size();
+    int middle = num_data / 2, left=0, right=num_data-1;
+    int index=-1;
+    while(left<=right && index!=middle)
     {
-      if(num.size()==0 || size<1 || size>num.size())
+      index = Partition(numbers, left, right);
+      if(index==-1)
+        break;
+      if(index==middle)
       {
-        vector<int> empty_list;
-        return empty_list;
+        int count = 0;
+        for(int i=0; i<numbers.size() ; i++)
+        {
+          if(numbers[i]==numbers[index])
+            count++;
+        }
+        if(count>num_data/2)
+          return numbers[index];
+        else
+          return 0;
       }
-      int num_data = num.size(), i, list_size;
 
-      if(size>=num_data)
-        list_size = 1;
+      else if(index<middle)
+      {
+        left = index + 1;
+        // index = Partition(numbers, left, right);
+      }
       else
-        list_size = num_data - size + 1;
-
-      vector<int> max_list(list_size);
-      deque<int> q;
-
-      for(i=0 ; i<size ; i++)
       {
-        while(!q.empty() && num[i]>=num[q.back()])
-          q.pop_back();
-        q.push_back(i);
+        right = index - 1;
+        //index = Partition(numbers, left, right);
       }
-      max_list[0] = num[q.front()];
-
-      for(i=size ; i<num_data ; i++)
-      {
-        while(!q.empty() && num[i]>num[q.back()])
-          q.pop_back();
-        q.push_back(i);
-        if(q.front()<=i-size)
-          q.pop_front();
-        max_list[i-size+1] = num[q.front()];
-      }
-
-      return max_list;
     }
+    return 0;
+  }
+  int Partition(vector<int> &data, int left, int right)
+  {
+    if(left<=right)
+    {
+      int temp = data[left];
+      int i=left, j=right;
+      while(i<j)
+      {
+        while(i<j && data[j]>temp)
+          j--;
+        if(i<j)
+          data[i++] = data[j];
+        while(i<j && data[i]<temp)
+          i++;
+        if(i<j)
+          data[j--] = data[i];
+      }
+      data[i] = temp;
+      for(int k=0 ; k<data.size() ; k++)
+        cout << data[k] << " ";
+      cout << endl;
+      return i;
+
+    }
+    return -1;
+  }
 };
 // ------------------------------------------------------------------
 
@@ -95,15 +122,11 @@ void permutation(vector<int> &data, int begin)
 
 int main(){
   srand((unsigned int)time(NULL));
-  int data[] = {2,3,4,2,6,2,5,1};
+  int data[] = {4,2,1,4,2,4};
   vector<int> vector_data(data,data+get_length(data));
 
   Solution s;
-  vector<int> max_list = s.maxInWindows(vector_data, 3);
-  string str = "abcXYZ";
-  cout << str.substr(0,0) + str.substr(0,str.size()) << endl;
-  cout << str.substr(0,0) << endl;
-  cout << (-3%5) << endl;
+  cout << s.MoreThanHalfNum_Solution(vector_data) << endl;
 
   return 0;
 }
