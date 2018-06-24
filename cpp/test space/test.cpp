@@ -16,74 +16,83 @@ using namespace std;
 
 
 // ------------------------------------------------------------------
-class Solution {
-public:
-  int MoreThanHalfNum_Solution(vector<int> numbers)
-  {
-    if(numbers.size()==0){return 0;}
-    int num_data = numbers.size();
-    int middle = num_data / 2, left=0, right=num_data-1;
-    int index=-1;
-    while(left<=right && index!=middle)
-    {
-      index = Partition(numbers, left, right);
-      if(index==-1)
-        break;
-      if(index==middle)
-      {
-        int count = 0;
-        for(int i=0; i<numbers.size() ; i++)
-        {
-          if(numbers[i]==numbers[index])
-            count++;
-        }
-        if(count>num_data/2)
-          return numbers[index];
-        else
-          return 0;
-      }
+class TreeNode
+{
+private:
 
-      else if(index<middle)
+public:
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  friend class BinaryTree;
+  friend void post_order(TreeNode &root);
+  TreeNode(int val=0)
+  {
+    this->val = val;
+    this->left = nullptr;
+    this->right = nullptr;
+  }
+  int get_val()
+  {
+    return this->val;
+  }
+};
+
+class BinaryTree
+{
+  TreeNode *root;
+public:
+  BinaryTree()
+  {
+    this->root = nullptr;
+  }
+};
+
+
+
+void post_order(TreeNode &root1)
+{
+  TreeNode *root = &root1;
+  stack<TreeNode*> s;
+  TreeNode *child;
+  int i=0;
+  while(root!=nullptr || !s.empty())
+  {
+    //cout << i << endl;
+    //i++;
+    while(root!=nullptr)
+    {
+      s.push(root);
+      root = root->left;
+    }
+
+    child = nullptr;
+    while(!s.empty())
+    {
+      root = s.top();
+      if(root->right==child)
       {
-        left = index + 1;
-        // index = Partition(numbers, left, right);
+        //cout << "here" << endl;
+        s.pop();
+        cout << root->val << endl;
+        child = root;
       }
       else
       {
-        right = index - 1;
-        //index = Partition(numbers, left, right);
+        root = root->right;
+        //cout << (root==nullptr) << endl;
+        break;
       }
-    }
-    return 0;
-  }
-  int Partition(vector<int> &data, int left, int right)
-  {
-    if(left<=right)
-    {
-      int temp = data[left];
-      int i=left, j=right;
-      while(i<j)
+      if(s.empty())
       {
-        while(i<j && data[j]>temp)
-          j--;
-        if(i<j)
-          data[i++] = data[j];
-        while(i<j && data[i]<temp)
-          i++;
-        if(i<j)
-          data[j--] = data[i];
+        return;
       }
-      data[i] = temp;
-      for(int k=0 ; k<data.size() ; k++)
-        cout << data[k] << " ";
-      cout << endl;
-      return i;
-
     }
-    return -1;
+
   }
-};
+}
 // ------------------------------------------------------------------
+
 
 
 void permutation(vector<int> &data, int begin)
@@ -125,8 +134,26 @@ int main(){
   int data[] = {4,2,1,4,2,4};
   vector<int> vector_data(data,data+get_length(data));
 
-  Solution s;
-  cout << s.MoreThanHalfNum_Solution(vector_data) << endl;
+  TreeNode *t47 = new TreeNode(47);
+  TreeNode *t35 = new TreeNode(35);
+  TreeNode *t26 = new TreeNode(26);
+  TreeNode *t24 = new TreeNode(24);
+  TreeNode *t18 = new TreeNode(18);
+  TreeNode *t7 = new TreeNode(7);
+  TreeNode *t13 = new TreeNode(13);
+  TreeNode *t19 = new TreeNode(19);
+  t47->left = t35;
+  t47->right = t26;
+
+  t35->left = t24;
+  t35->right = t18;
+
+  t26->left = t7;
+  t26->right = t13;
+
+  t24->left = t19;
+  post_order(t47);
+
 
   return 0;
 }
