@@ -18,14 +18,11 @@ using namespace std;
 // ------------------------------------------------------------------
 class TreeNode
 {
-private:
-
 public:
   int val;
   TreeNode *left;
   TreeNode *right;
   friend class BinaryTree;
-  friend void post_order(TreeNode &root);
   TreeNode(int val=0)
   {
     this->val = val;
@@ -48,11 +45,60 @@ public:
   }
 };
 
-
-
-void post_order(TreeNode &root1)
+/*
+void pre_order(TreeNode *root)
 {
-  TreeNode *root = &root1;
+  stack<TreeNode*> s;
+  while(!s.empty() || root!=nullptr)
+  {
+    while(root!=nullptr)
+    {
+      cout << root->val << " ";
+      s.push(root);
+      root = root->left;
+    }
+    if(!s.empty())
+    {
+      root = s.top();
+      s.pop();
+      root = root->right;
+    }
+  }
+  return;
+}
+*/
+void pre_order(TreeNode *root)
+{
+  stack<TreeNode*> s;
+  while(!s.empty() || root!=nullptr)
+  {
+    while(root!=nullptr)
+    {
+      cout << root->val << " ";
+      s.push(root);
+      root = root->left;
+    }
+    if(!s.empty())
+    {
+      root = s.top();
+      s.pop();
+      root = root->right;
+    }
+  }
+  return;
+}
+
+
+void post_order_recurrent(TreeNode *root)
+{
+  if(root==nullptr){return;}
+  post_order_recurrent(root->left);
+  post_order_recurrent(root->right);
+  cout << root->val << " ";
+}
+
+void post_order(TreeNode *root)
+{
   stack<TreeNode*> s;
   TreeNode *child;
   int i=0;
@@ -152,7 +198,9 @@ int main(){
   t26->right = t13;
 
   t24->left = t19;
-  post_order(t47);
+  pre_order(t47);
+  //post_order(t47);
+  //post_order_recurrent(t47);
 
 
   return 0;

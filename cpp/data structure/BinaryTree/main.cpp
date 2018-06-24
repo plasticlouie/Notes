@@ -3,6 +3,35 @@
 
 using namespace std;
 
+void pre_order(TreeNode *root)
+{
+  stack<TreeNode*> s;
+  while(!s.empty() || root!=nullptr)
+  {
+    while(root!=nullptr)
+    {
+      cout << root->val << " ";
+      s.push(root);
+      root = root->left;
+    }
+    if(!s.empty())
+    {
+      root = s.top();
+      s.pop();
+      root = root->right;
+    }
+  }
+  return;
+}
+
+void post_order_recurrent(TreeNode *root)
+{
+  if(root==nullptr){return;}
+  post_order_recurrent(root->left);
+  post_order_recurrent(root->right);
+  cout << root->val << " ";
+}
+
 void post_order(TreeNode *root)
 {
   stack<TreeNode*> s;
