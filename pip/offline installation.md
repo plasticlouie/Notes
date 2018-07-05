@@ -1,6 +1,21 @@
-#Install packages using pip offline#
 
-deerx@deerx-server:~$ pip download tensorflow-gpu==1.3
+# Install packages using pip offline
+
+## 1. Download the target package first (online)
+
+Download the target package with its' dependencies using pip download command
+
+```
+$ pip download <package-name> <save-path>
+```
+
+for example:
+
+```
+$ pip download tensorflow-gpu==1.3 ./
+```
+
+```
 Collecting tensorflow-gpu==1.3
   Using cached https://files.pythonhosted.org/packages/ca/c4/e39443dcdb80631a86c265fb07317e2c7ea5defe73cb531b7cd94692f8f5/tensorflow_gpu-1.3.0-cp27-cp27mu-manylinux1_x86_64.whl
   Saved ./tensorflow_gpu-1.3.0-cp27-cp27mu-manylinux1_x86_64.whl
@@ -56,3 +71,39 @@ Collecting pbr>=0.11 (from mock>=2.0.0->tensorflow-gpu==1.3)
     100% |████████████████████████████████| 102kB 6.0MB/s
   Saved ./pbr-4.0.4-py2.py3-none-any.whl
 Successfully downloaded tensorflow-gpu six protobuf wheel backports.weakref numpy tensorflow-tensorboard mock setuptools werkzeug html5lib markdown bleach funcsigs pbr
+```
+
+The following packages will be downloaded
+```
+tensorflow_gpu-1.3.0-cp27-cp27mu-manylinux1_x86_64.whl
+six-1.11.0-py2.py3-none-any.whl
+protobuf-3.6.0-cp27-cp27mu-manylinux1_x86_64.whl
+wheel-0.31.1-py2.py3-none-any.whl
+backports.weakref-1.0.post1-py2.py3-none-any.whl
+numpy-1.14.5-cp27-cp27mu-manylinux1_x86_64.whl
+tensorflow_tensorboard-0.1.8-py2-none-any.whl
+mock-2.0.0-py2.py3-none-any.whl
+setuptools-39.2.0-py2.py3-none-any.whl
+/Werkzeug-0.14.1-py2.py3-none-any.whl
+html5lib-0.9999999.tar.gz
+Markdown-2.6.11-py2.py3-none-any.whl
+bleach-1.5.0-py2.py3-none-any.whl
+funcsigs-1.0.2-py2.py3-none-any.whl
+pbr-4.0.4-py2.py3-none-any.whl
+```
+
+
+## 2. Copy the downloaded package to the offline service
+
+...
+
+## 3. Install the target package offline
+```
+$ pip install --no-index --find-links <package-path> <package-name>
+```
+
+for example:
+
+```
+$ pip install --no-index --find-links ./ tensorflow_gpu-1.3.0-cp27-cp27mu-manylinux1_x86_64.whl
+```
