@@ -1,0 +1,37 @@
+# 方向导数与梯度
+
+## 方向导数
+
+**定义：**
+多元函数在某一点P沿某个方向的变化率，称为这个方向的方向导数。
+
+**定理：**
+函数$z=f(x,y)$在点$P(x_p,y_p)$处沿方向$\phi$（$\phi$为x轴到该点的转角）引出射线$l$，则方向导数为：
+$$\frac{\partial f}{\partial l}=\frac{\partial f}{\partial x}cos\phi+\frac{\partial f}{\partial y}sin\phi$$
+
+**证明：**
+设点$P_2(x_p+\Delta x, y_p+\Delta y)$为沿着射线$l$距离$P$很近的点。
+$\rho=\sqrt{(\Delta x)^2+(\Delta y)^2}$
+
+$\frac{\partial f}{\partial l}= lim_{\rho\to0}\frac{f(x+\Delta x,y+\Delta y)-f(x,y)}{\rho} $
+
+函数$z=f(x,y)$在点$P(x,y)$处可微，函数增量可表达为：
+$$f(x+\Delta x,y+\Delta y)=\frac{\partial f}{\partial x}\Delta x+\frac{\partial f}{\partial y}\Delta y+o(\rho)$$
+
+两边同时除以$\rho$：
+$$\frac{f(x+\Delta x,y+\Delta y)-f(x,y)}{\rho}$$
+$$=\frac{\partial f}{\partial x}\frac{\Delta x}{\rho}+\frac{\partial f}{\partial y}\frac{\Delta y}{\rho}+\frac{o(\rho)}{\rho}$$
+$$=\frac{\partial f}{\partial x}cos\phi+\frac{\partial f}{\partial y}sin\phi+\frac{o(\rho)}{\rho}$$
+当$\rho\to0$时上式等于：
+$$=\frac{\partial f}{\partial x}cos\phi+\frac{\partial f}{\partial y}sin\phi$$
+
+## 梯度
+**定义：**
+函数$z=f(x,y)$在平面区域$D$内有一阶连续偏导，则在点$(x,y)$，定义**向量**：
+$$\frac{\partial f}{\partial x}i+\frac{\partial f}{\partial y}j$$
+
+该向量称为在点$(x,y)$处的梯度，记作$grad  f(x,y)$
+
+## 方向导数和梯度的关系
+
+方向导数的值可以看作单位向量$l$在梯度方向的投影，所以当$l$的方向和梯度方向一致的时候，方向导数取得最大值
