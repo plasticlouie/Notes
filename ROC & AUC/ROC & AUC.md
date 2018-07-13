@@ -2,7 +2,7 @@
 
 ## TPR(True positive rate) & FPR(False p)
 
-![lena](https://img-blog.csdn.net/20151129213701642)
+![precision_recall](./pics/precision_recall.png)
 
 <img src="http://7xqoji.com1.z0.glb.clouddn.com/mytest.jpg" width="500" hegiht="313" align=center />
 
