@@ -9,6 +9,7 @@
 <img src="http://7xqoji.com1.z0.glb.clouddn.com/mytest.jpg" width="500" hegiht="313" align=center />
 
 <img src="https://github.com/plasticlouie/Notes/blob/master/ROC%20%26%20AUC/pics/precision_recall.png"/>
+<img src="https://github.com/plasticlouie/Notes/blob/master/ROC%20%26%20AUC/pics/precision_recall.png"/>
 
 ```
 P: Positives
